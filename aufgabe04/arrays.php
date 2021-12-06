@@ -4,12 +4,14 @@
         array(
             'id' => 1,
             'username' => 'mustermann',
+            'name' => 'Max Mustermann',
             'email' => 'mustermann@muster.de',
             'projektID' => 1
         ),
         array(
             'id' => 2,
             'username' => 'elena',
+            'name' => 'Elena Musterfrau',
             'email' => 'elena@example.com',
             'projektID' => 1
         )
