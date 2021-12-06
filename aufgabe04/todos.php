@@ -16,26 +16,39 @@
             ?>
             <div class="col">
                 <div class="row">
-                    <div class="col card border-0">
-                        <div class="card-header">ToDo:</div>
-                        <ul class="list-group">
-                            <li class="list-group-item">HTML Datei erstellen (Max Mustermann)</li>
-                            <li class="list-group-item">CSS Datei erstellen (Max Mustermann)</li>
-                        </ul>
-                    </div>
-                    <div class="col card border-0">
-                        <div class="card-header">Erledigt:</div>
-                        <ul class="list-group">
-                            <li class="list-group-item">Pc einschalten (Petra Müller)</li>
-                            <li class="list-group-item">Kaffee einschalten (Petra Müller)</li>
-                        </ul>
-                    </div>
-                    <div class="col card border-0">
-                        <div class="card-header">Verschoben:</div>
-                        <ul class="list-group">
-                            <li class="list-group-item">Für die Uni lernen (Max Mustermann)</li>
-                        </ul>
-                    </div>
+                    <?php
+                    $reiter = array();
+                    $aufgaben = array();
+                    $mitglieder = array();
+                    include("arrays.php");
+                    foreach($reiter as $r){
+                        echo("<div class='col card border-0'>");
+                        echo("<div class='card-header'>" . (isset($r['name']) ? $r['name'] : '') . ":</div>");
+                        if(isset($r['id'])) {
+                            echo("<ul class='list-group'>");
+                            foreach($aufgaben as $aufgabe) {
+                                if(isset($aufgabe['reiter']) && $aufgabe['reiter'] == $r['id']) {
+                                    $gefundenesMitglied = null;
+                                    if(isset($aufgabe['zustaendig'])) {
+                                        foreach($mitglieder as $mitglied) {
+                                            if(isset($mitglied['id']) && $mitglied['id'] == $aufgabe['zustaendig']) {
+                                                $gefundenesMitglied = $mitglied;
+                                            }
+                                        }
+                                    }
+                                    if(isset($aufgabe['titel'])) {
+                                        echo("<li class='list-group-item'>");
+                                        echo($aufgabe['titel']);
+                                        echo(isset($gefundenesMitglied['name']) ? (" (" . $gefundenesMitglied['name'] . ")") : "");
+                                        echo("</li>");
+                                    }
+                                }
+                            }
+                            echo("</ul>");
+                        }
+                        echo("</div>");
+                    }
+                    ?>
                 </div>
             </div>
         </div>

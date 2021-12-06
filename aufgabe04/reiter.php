@@ -24,30 +24,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>ToDo</td>
-                        <td>Dinge, die erledigt werden müssen.</td>
-                        <td class="text-right">
-                            <object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>
-                            <object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Erledigt</td>
-                        <td>Dinge, die erledigt sind.</td>
-                        <td class="text-right">
-                            <object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>
-                            <object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Verschoben</td>
-                        <td>Dinge, die später erledigt werden.</td>
-                        <td class="text-right">
-                            <object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>
-                            <object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>
-                        </td>
-                    </tr>
+                    <?php
+                    $reiter = array();
+                    include("arrays.php");
+                    foreach($reiter as $r){
+                    echo("<tr>");
+                        echo("<td>" . (isset($r['name']) ? $r['name'] : '') . "</td>");
+                        echo("<td>" . (isset($r['beschreibung']) ? $r['beschreibung'] : '') . "</td>");
+                        echo('<td class="text-right">'
+                            . '<object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>'
+                            . '<object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>'
+                            . '</td>');
+                        echo("</tr>");
+                    }
+                    ?>
                     </tbody>
                 </table>
                 <form>

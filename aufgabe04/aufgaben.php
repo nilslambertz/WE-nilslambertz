@@ -26,56 +26,44 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>HTML-Datei erstellen</td>
-                        <td>HTML-Datei erstellen</td>
-                        <td>ToDo</td>
-                        <td>Max Mustermann</td>
-                        <td class="text-right">
-                            <object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>
-                            <object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>CSS-Datei erstellen</td>
-                        <td>CSS-Datei erstellen</td>
-                        <td>ToDo</td>
-                        <td>Max Mustermann</td>
-                        <td class="text-right">
-                            <object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>
-                            <object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Pc einschalten</td>
-                        <td>Pc einschalten</td>
-                        <td>Erledigt</td>
-                        <td>Max Mustermann</td>
-                        <td class="text-right">
-                            <object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>
-                            <object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Kaffee trinken</td>
-                        <td>Kaffee trinken</td>
-                        <td>Erledigt</td>
-                        <td>Petra Müller</td>
-                        <td class="text-right">
-                            <object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>
-                            <object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Für die Uni lernen</td>
-                        <td>Für die Uni lernen</td>
-                        <td>Verschoben</td>
-                        <td>Max Mustermann</td>
-                        <td class="text-right">
-                            <object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>
-                            <object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>
-                        </td>
-                    </tr>
+                    <?php
+                    $aufgaben = array();
+                    $reiter = array();
+                    $mitglieder = array();
+                    include("arrays.php");
+                    foreach($aufgaben as $aufgabe){
+                        echo("<tr>");
+                        echo("<td>" . (isset($aufgabe['titel']) ? $aufgabe['titel'] : '') . "</td>");
+                        echo("<td>" . (isset($aufgabe['beschreibung']) ? $aufgabe['beschreibung'] : '') . "</td>");
+                        if(isset($aufgabe['reiter'])) {
+                            $gefundenerReiter = null;
+                            foreach($reiter as $r) {
+                                if(isset($r['id']) && $r['id'] == $aufgabe['reiter']) {
+                                    $gefundenerReiter = $r;
+                                }
+                            }
+                            echo("<td>" . (isset($gefundenerReiter['name']) ? $gefundenerReiter['name'] : '') . "</td>");
+                        } else {
+                            echo("<td></td>");
+                        }
+                        if(isset($aufgabe['zustaendig'])) {
+                            $gefundenesMitglied = null;
+                            foreach($mitglieder as $mitglied) {
+                                if(isset($mitglied['id']) && $mitglied['id'] == $aufgabe['zustaendig']) {
+                                    $gefundenesMitglied = $mitglied;
+                                }
+                            }
+                            echo("<td>" . (isset($gefundenesMitglied['name']) ? $gefundenesMitglied['name'] : '') . "</td>");
+                        } else {
+                            echo("<td></td>");
+                        }
+                        echo('<td class="text-right">'
+                            . '<object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>'
+                            . '<object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>'
+                            . '</td>');
+                        echo("</tr>");
+                    }
+                    ?>
                     </tbody>
                 </table>
                 <form>

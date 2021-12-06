@@ -20,9 +20,17 @@
                         <h3><label for="projektSelect">Projekt auswählen:</label></h3>
                         <select class="custom-select" id="projektSelect">
                             <option selected>- bitte auswählen -</option>
-                            <option value="1">Projekt 1</option>
-                            <option value="2">Projekt 2</option>
-                            <option value="3">Projekt 3</option>
+                            <?php
+                                $projekte = array();
+                                include("arrays.php");
+                                foreach($projekte as $projekt) {
+                                    if(isset($projekt['id']) && isset($projekt['name'])) {
+                                        echo("<option>");
+                                        echo($projekt['name']);
+                                        echo("</option>");
+                                    }
+                                }
+                            ?>
                         </select>
                     </div>
                     <button type="button" class="btn btn-primary">Auswählen</button>
