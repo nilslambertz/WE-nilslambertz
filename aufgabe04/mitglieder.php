@@ -18,6 +18,7 @@
                 <table class="table">
                     <thead class="thead-light">
                     <tr>
+                        <th scope="col">Name</th>
                         <th scope="col">Username</th>
                         <th scope="col">E-Mail</th>
                         <th scope="col">In Projekt</th>
@@ -31,6 +32,7 @@
                         include("arrays.php");
                         foreach($mitglieder as $mitglied){
                             echo("<tr>");
+                            echo("<td>" . (isset($mitglied['name']) ? $mitglied['name'] : '') . "</td>");
                             echo("<td>" . (isset($mitglied['username']) ? $mitglied['username'] : '') . "</td>");
                             echo("<td>" . (isset($mitglied['email']) ? $mitglied['email'] : '') . "</td>");
                             if(isset($mitglied['projektID'])) {
