@@ -18,7 +18,6 @@
                 </thead>
                 <tbody>
                 <?php
-                $mitglieder = array();
                 $projekte = array();
                 //include("arrays.php");
                 foreach($mitglieder as $mitglied){
@@ -38,8 +37,8 @@
                         echo("<td></td>");
                     }
                     echo('<td class="text-right">'
-                        . '<object height="20" data="icons/edit-box.svg" type="image/svg+xml">Bearbeiten</object>'
-                        . '<object height="20" data="icons/trash-bin.svg" type="image/svg+xml">Löschen</object>'
+                        . '<object height="20" data="assets/edit-box.svg" type="image/svg+xml">Bearbeiten</object>'
+                        . '<object height="20" data="assets/trash-bin.svg" type="image/svg+xml">Löschen</object>'
                         . '</td>');
                     echo("</tr>");
                 }
