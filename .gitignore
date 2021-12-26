@@ -1,1 +1,4 @@
 .idea
+codeigniter/app/Config/App.php
+codeigniter/app/Config/Database.php
+codeigniter/public/.htaccess
