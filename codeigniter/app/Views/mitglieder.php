@@ -18,28 +18,14 @@
                 </thead>
                 <tbody>
                 <?php
+                helper("functions");
+
                 foreach($mitglieder as $mitglied){
                     echo("<tr>");
                     echo("<td>" . (isset($mitglied['name']) ? $mitglied['name'] : '') . "</td>");
                     echo("<td>" . (isset($mitglied['username']) ? $mitglied['username'] : '') . "</td>");
                     echo("<td>" . (isset($mitglied['email']) ? $mitglied['email'] : '') . "</td>");
-                    $projekt_namen = [];
-                    foreach($projekte_mitglieder as $projekt_mitglied) {
-                        if(isset($mitglied['id']) && $projekt_mitglied['mitglied'] == $mitglied['id']) {
-                            foreach($projekte as $projekt) {
-                                if(isset($projekt['id']) && isset($projekt['name']) && $projekt['id'] == $projekt_mitglied['projekt']) {
-                                    array_push($projekt_namen, $projekt['name']);
-                                }
-                            }
-                        }
-                    }
-                    echo("<td>");
-                    for($i = 0; $i < count($projekt_namen); $i++) {
-                        echo($projekt_namen[$i]);
-                        if($i != count($projekt_namen) - 1) {
-                            echo ", ";
-                        }
-                    }
+                    echo("<td>" . getProjektNamenFromMitglied($projekte, $projekte_mitglieder, $mitglied) . "</td>");
                     echo("</td>");
                     echo('<td class="text-right">'
                         . '<object height="20" data="assets/edit-box.svg" type="image/svg+xml">Bearbeiten</object>'
