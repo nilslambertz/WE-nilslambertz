@@ -18,8 +18,6 @@
                 </thead>
                 <tbody>
                 <?php
-                $projekte = array();
-                //include("arrays.php");
                 foreach($mitglieder as $mitglied){
                     echo("<tr>");
                     echo("<td>" . (isset($mitglied['name']) ? $mitglied['name'] : '') . "</td>");

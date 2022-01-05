@@ -12,8 +12,6 @@
                     <select class="custom-select" id="projektSelect">
                         <option selected>- bitte auswählen -</option>
                         <?php
-                        $projekte = array();
-                        //include("arrays.php");
                         foreach($projekte as $projekt) {
                             if(isset($projekt['id']) && isset($projekt['name'])) {
                                 echo("<option>");

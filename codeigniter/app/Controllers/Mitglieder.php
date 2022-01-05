@@ -1,24 +1,20 @@
 <?php namespace App\Controllers;
+use App\Models\ProjekteModel;
 use CodeIgniter\Controller;
+use App\Models\MitgliederModel;
 
 class Mitglieder extends BaseController {
+    private $MitgliederModel;
+    private $ProjekteModel;
+
+    public function __construct() {
+        $this->MitgliederModel = new MitgliederModel();
+        $this->ProjekteModel = new ProjekteModel();
+    }
+
     public function index() {
-        $data['mitglieder'] = array(
-            array(
-                'id' => 1,
-                'username' => 'mustermann',
-                'name' => 'Max Mustermann',
-                'email' => 'mustermann@muster.de',
-                'projektID' => 1
-            ),
-            array(
-                'id' => 2,
-                'username' => 'elena',
-                'name' => 'Elena Musterfrau',
-                'email' => 'elena@example.com',
-                'projektID' => 1
-            )
-        );
+        $data['mitglieder'] = $this->MitgliederModel->getMitglieder();
+        $data['projekte'] = $this->ProjekteModel->getProjekte();
 
         echo view('templates/header');
         echo view('mitglieder', $data);
