@@ -19,9 +19,6 @@
                 </thead>
                 <tbody>
                 <?php
-                $reiter = array();
-                $mitglieder = array();
-                //include("arrays.php");
                 foreach($aufgaben as $aufgabe){
                     echo("<tr>");
                     echo("<td>" . (isset($aufgabe['name']) ? $aufgabe['name'] : '') . "</td>");
@@ -37,17 +34,24 @@
                     } else {
                         echo("<td></td>");
                     }
-                    if(isset($aufgabe['zustaendig'])) {
-                        $gefundenesMitglied = null;
-                        foreach($mitglieder as $mitglied) {
-                            if(isset($mitglied['id']) && $mitglied['id'] == $aufgabe['zustaendig']) {
-                                $gefundenesMitglied = $mitglied;
+                    $zustaendig = [];
+                    foreach($aufgaben_mitglieder as $aufgabe_mitglied) {
+                        if(isset($aufgabe['id']) && isset($aufgabe_mitglied['aufgabe']) && $aufgabe_mitglied['aufgabe'] == $aufgabe['id']) {
+                            foreach($mitglieder as $mitglied) {
+                                if(isset($mitglied['id']) && isset($mitglied['name']) && $mitglied['id'] == $aufgabe_mitglied['mitglied']) {
+                                    array_push($zustaendig, $mitglied['name']);
+                                }
                             }
                         }
-                        echo("<td>" . (isset($gefundenesMitglied['name']) ? $gefundenesMitglied['name'] : '') . "</td>");
-                    } else {
-                        echo("<td></td>");
                     }
+                    echo("<td>");
+                    for($i = 0; $i < count($zustaendig); $i++) {
+                        echo($zustaendig[$i]);
+                        if($i != count($zustaendig) - 1) {
+                            echo ", ";
+                        }
+                    }
+                    echo("</td>");
                     echo('<td class="text-right">'
                         . '<object height="20" data="assets/edit-box.svg" type="image/svg+xml">Bearbeiten</object>'
                         . '<object height="20" data="assets/trash-bin.svg" type="image/svg+xml">Löschen</object>'

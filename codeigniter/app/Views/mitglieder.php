@@ -23,17 +23,24 @@
                     echo("<td>" . (isset($mitglied['name']) ? $mitglied['name'] : '') . "</td>");
                     echo("<td>" . (isset($mitglied['username']) ? $mitglied['username'] : '') . "</td>");
                     echo("<td>" . (isset($mitglied['email']) ? $mitglied['email'] : '') . "</td>");
-                    if(isset($mitglied['projektID'])) {
-                        $gefundenesProjekt = null;
-                        foreach($projekte as $projekt) {
-                            if(isset($projekt['id']) && $projekt['id'] == $mitglied['projektID']) {
-                                $gefundenesProjekt = $projekt;
+                    $projekt_namen = [];
+                    foreach($projekte_mitglieder as $projekt_mitglied) {
+                        if(isset($mitglied['id']) && $projekt_mitglied['mitglied'] == $mitglied['id']) {
+                            foreach($projekte as $projekt) {
+                                if(isset($projekt['id']) && isset($projekt['name']) && $projekt['id'] == $projekt_mitglied['projekt']) {
+                                    array_push($projekt_namen, $projekt['name']);
+                                }
                             }
                         }
-                        echo("<td>" . (isset($gefundenesProjekt['name']) ? $gefundenesProjekt['name'] : '') . "</td>");
-                    } else {
-                        echo("<td></td>");
                     }
+                    echo("<td>");
+                    for($i = 0; $i < count($projekt_namen); $i++) {
+                        echo($projekt_namen[$i]);
+                        if($i != count($projekt_namen) - 1) {
+                            echo ", ";
+                        }
+                    }
+                    echo("</td>");
                     echo('<td class="text-right">'
                         . '<object height="20" data="assets/edit-box.svg" type="image/svg+xml">Bearbeiten</object>'
                         . '<object height="20" data="assets/trash-bin.svg" type="image/svg+xml">Löschen</object>'
