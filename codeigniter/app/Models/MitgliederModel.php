@@ -16,4 +16,12 @@ class MitgliederModel extends Model
         else
             return $result->getResultArray();
     }
+
+    public function login($username) {
+        $mitglieder = $this->db->table('mitglieder');
+        $mitglieder->select('*');
+        $mitglieder->where('mitglieder.username', $username);
+
+        return $mitglieder->get()->getRowArray();
+    }
 }

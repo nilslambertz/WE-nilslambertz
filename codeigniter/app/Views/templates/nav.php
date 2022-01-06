@@ -1,7 +1,14 @@
 <div class="col-2">
     <ul class="list-group">
         <li class="list-group-item">
-            <a href="login">Login</a>
+            <?php
+                $this->session = \Config\Services::session();
+                if(!$this->session->get('loggedIn')) {
+                    echo('<a href="login">Login</a>');
+                } else {
+                    echo('<a href="' . base_url() . '/login/process_logout">Logout</a>');
+                }
+            ?>
         </li>
         <li class="list-group-item">
             <a href="projekte">Projekte</a>

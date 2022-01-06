@@ -10,8 +10,15 @@ class Aufgaben extends BaseController {
     private $ReiterModel;
     private $MitgliederModel;
     private $AufgabenMitgliederModel;
+    private $session;
 
     public function __construct() {
+        $this->session = \Config\Services::session();
+        if($this->session->get('loggedIn') == NULL) {
+            header('Location: ' . base_url() . '/login');
+            exit();
+        }
+
         $this->AufgabenModel = new AufgabenModel();
         $this->ReiterModel = new ReiterModel();
         $this->MitgliederModel = new MitgliederModel();

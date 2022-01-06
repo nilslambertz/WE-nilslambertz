@@ -6,22 +6,25 @@
         <div class="col-2">
         </div>
         <div class="col">
-            <form>
-                <div class="form-group">
-                    <label for="email">E-Mail-Adresse:</label>
-                    <input type="text" id="email" placeholder="E-Mail-Adresse eingeben" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="password">Passwort:</label>
-                    <input type="password" id="password" placeholder="Passwort" class="form-control" />
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" id="agb" class="form-check-input" />
-                    <label for="agb" class="form-check-label">ABG und Datenschutzbedingungen akzeptieren</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Einloggen</button>
-                <p>Noch nicht registriert? <a href="registrierung">Registrierung</a></p>
-                <p>Da der Login-Vorgang technisch noch nicht realisiert wurde: <a href="todos">Überspringen</a></p>
+            <?php
+            helper('form');
+            echo form_open(base_url('login/process_login/'), array('role' => 'form'));
+            ?>
+            <div class="form-group">
+                <label for="username">Benutzername:</label>
+                <input type="text" id="username" name="username" placeholder="Benutzernamen eingeben" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="password">Passwort:</label>
+                <input type="password" id="password" name="password" placeholder="Passwort" class="form-control"/>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" id="agb" class="form-check-input"/>
+                <label for="agb" class="form-check-label">ABG und Datenschutzbedingungen akzeptieren</label>
+            </div>
+            <button id="btnsubmit" type="submit" class="btn btn-primary">Einloggen</button>
+            <p>Noch nicht registriert? <a href="registrierung">Registrierung</a></p>
+            <p>Da der Login-Vorgang technisch noch nicht realisiert wurde: <a href="todos">Überspringen</a></p>
             </form>
         </div>
         <div class="col-2"></div>
