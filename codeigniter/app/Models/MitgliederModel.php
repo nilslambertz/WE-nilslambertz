@@ -24,4 +24,22 @@ class MitgliederModel extends Model
 
         return $mitglieder->get()->getRowArray();
     }
+
+    public function createMitglied($data) {
+        $mitglieder = $this->db->table('mitglieder');
+        $mitglieder->insert($data);
+        return $this->db->insertID();
+    }
+
+    public function updateMitglied($id, $data) {
+        $mitglieder = $this->db->table('mitglieder');
+        $mitglieder->where('id', $id);
+        $mitglieder->update($data);
+    }
+
+    public function deleteMitglied($id) {
+        $mitglieder = $this->db->table('mitglieder');
+        $mitglieder->where('id', $id);
+        $mitglieder->delete();
+    }
 }

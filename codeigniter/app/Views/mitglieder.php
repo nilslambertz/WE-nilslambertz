@@ -6,61 +6,111 @@
         <?php include('templates/nav.php');
         ?>
         <div class="col pb-2">
-            <table class="table">
-                <thead class="thead-light">
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">E-Mail</th>
-                    <th scope="col">In Projekt</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                helper("functions");
+            <?php
+            $disabled = false;
+            $mitglied = null;
+            if ($showForm == true):
+                helper('form');
+                $getParams = '';
+                if ($id) {
+                    $getParams .= '?id=' . $id;
+                    foreach ($mitglieder as $m) {
+                        if (isset($m['id']) && $m['id'] == $id) {
+                            $mitglied = $m;
+                        }
+                    }
+                    if ($delete) {
+                        $getParams .= '&action=delete';
+                        $disabled = true;
 
-                foreach($mitglieder as $mitglied){
-                    echo("<tr>");
-                    echo("<td>" . (isset($mitglied['name']) ? $mitglied['name'] : '') . "</td>");
-                    echo("<td>" . (isset($mitglied['username']) ? $mitglied['username'] : '') . "</td>");
-                    echo("<td>" . (isset($mitglied['email']) ? $mitglied['email'] : '') . "</td>");
-                    echo("<td>" . getProjektNamenFromMitglied($projekte, $projekte_mitglieder, $mitglied) . "</td>");
-                    echo("</td>");
-                    echo('<td class="text-right">'
-                        . '<object height="20" data="assets/edit-box.svg" type="image/svg+xml">Bearbeiten</object>'
-                        . '<object height="20" data="assets/trash-bin.svg" type="image/svg+xml">Löschen</object>'
-                        . '</td>');
-                    echo("</tr>");
+                    } else {
+                        $getParams .= '&action=edit';
+                    }
+                } else {
+                    $getParams .= '?action=create';
+                }
+                echo('<a href="' . base_url('mitglieder') . '"><button class="btn btn-info mb-3">Zurück</button></a>');
+                echo form_open(base_url('mitglieder/submit' . $getParams), array('role' => 'form'));
+                ?>
+                <?php if ($id != null): ?>
+                <?php if ($delete): ?>
+                    <h3>Löschen:</h3>
+                <?php else: ?>
+                    <h3>Bearbeiten:</h3>
+                <?php endif; ?>
+            <?php else: ?>
+                <h3>Erstellen:</h3>
+            <?php endif; ?>
+
+                <?php
+                $formElements = [];
+                $formElements["name"] = "Name";
+                $formElements["username"] = "Username";
+                $formElements["email"] = "E-Mail-Adresse";
+                if (!$delete && (!isset($id) || (isset($_SESSION['userId']) && $id == $_SESSION['userId']))) {
+                    $formElements["password"] = "Passwort";
+                }
+
+                foreach ($formElements as $key => $name) {
+                    echo('<div class="form-group">');
+                    echo('<label for="' . $key . '">' . $name . ':</label>');
+                    echo('<input 
+                            type="' . ($key == "password" ? $key : 'text') . '" 
+                            id="' . $key . '" 
+                            name="' . $key . '"
+                            placeholder="' . $name . '" 
+                            value="' . ((isset($mitglied[$key]) && $key != "password" ? $mitglied[$key] : '')) . '"
+                            class="form-control"
+                            ' . ($disabled ? "disabled" : "") . '
+                            />');
+                    echo('</div>');
                 }
                 ?>
-                </tbody>
-            </table>
-            <form>
-                <h3>Bearbeiten/Erstellen:</h3>
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" placeholder="Username" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="email">E-Mail-Adresse:</label>
-                    <input type="text" id="email" placeholder="E-Mail-Adresse eingeben" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="passwort">Passwort:</label>
-                    <input type="password" id="passwort" placeholder="Passwort" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="projekt">Zugewiesenes Projekt:</label>
-                    <select class="custom-select" id="projekt">
-                        <option value="1" selected>Projekt 1</option>
-                        <option value="2">Projekt 2</option>
-                        <option value="3">Projekt 3</option>
-                    </select>
-                </div>
-                <button type="button" class="btn btn-primary">Speichern</button>
-                <button type="button" class="btn btn-info">Reset</button>
-            </form>
+                <?php if ($delete): ?>
+                <button type="submit" class="btn btn-danger">Löschen</button>
+
+            <?php else: ?>
+                <button type="reset" class="btn btn-info">Werte zurücksetzen</button>
+                <button type="submit" class="btn btn-primary">Speichern</button>
+            <?php endif; ?>
+                </form>
+            <?php
+            else:
+                ?>
+                <table class="table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">E-Mail</th>
+                        <th scope="col">In Projekt</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    helper("functions");
+
+                    foreach ($mitglieder as $mitglied) {
+                        echo("<tr>");
+                        echo("<td>" . (isset($mitglied['name']) ? $mitglied['name'] : '') . "</td>");
+                        echo("<td>" . (isset($mitglied['username']) ? $mitglied['username'] : '') . "</td>");
+                        echo("<td>" . (isset($mitglied['email']) ? $mitglied['email'] : '') . "</td>");
+                        echo("<td>" . getProjektNamenFromMitglied($projekte, $projekte_mitglieder, $mitglied) . "</td>");
+                        echo("</td>");
+                        echo('<td class="text-right">'
+                            . '<a href="mitglieder/edit/' . $mitglied['id'] . '" class="mr-3"><i class="fas fa-edit fa-lg"></i></a>'
+                            . '<a href="mitglieder/delete/' . $mitglied['id'] . '"><i class="fas fa-trash fa-lg"></i></a>'
+                            . '</td>');
+                        echo("</tr>");
+                    }
+                    ?>
+                    </tbody>
+                </table>
+                <a href="mitglieder/create">
+                    <button class="btn btn-primary">Neues Mitglied erstellen</button>
+                </a>
+            <?php endif; ?>
         </div>
         <div class="col-2"></div>
     </div>
