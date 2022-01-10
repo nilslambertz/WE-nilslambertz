@@ -35,12 +35,13 @@ function getMitgliederNamenFromAufgabe($aufgabe, $aufgaben_mitglieder, $mitglied
     return $result;
 }
 
-function getProjektNamenFromMitglied($projekte, $projekte_mitglieder, $mitglied) {
+function getProjektNamenFromMitglied($projekte, $projekte_mitglieder, $mitglied)
+{
     $projekt_namen = [];
-    foreach($projekte_mitglieder as $projekt_mitglied) {
-        if(isset($mitglied['id']) && $projekt_mitglied['mitglied'] == $mitglied['id']) {
-            foreach($projekte as $projekt) {
-                if(isset($projekt['id']) && isset($projekt['name']) && $projekt['id'] == $projekt_mitglied['projekt']) {
+    foreach ($projekte_mitglieder as $projekt_mitglied) {
+        if (isset($mitglied['id']) && $projekt_mitglied['mitglied'] == $mitglied['id']) {
+            foreach ($projekte as $projekt) {
+                if (isset($projekt['id']) && isset($projekt['name']) && $projekt['id'] == $projekt_mitglied['projekt']) {
                     array_push($projekt_namen, $projekt['name']);
                 }
             }
@@ -51,6 +52,28 @@ function getProjektNamenFromMitglied($projekte, $projekte_mitglieder, $mitglied)
         $result .= $projekt_namen[$i];
         if ($i != count($projekt_namen) - 1) {
             $result .= ", ";
+        }
+    }
+    return $result;
+}
+
+function getProjektIdsFromMitglied($projekte_mitglieder, $mitglied)
+{
+    $projektIds = [];
+    foreach ($projekte_mitglieder as $projekt_mitglied) {
+        if (isset($mitglied['id']) && isset($projekt_mitglied['mitglied']) && isset($projekt_mitglied['projekt'])
+            && $projekt_mitglied['mitglied'] == $mitglied['id']) {
+            array_push($projektIds, $projekt_mitglied['projekt']);
+        }
+    }
+    return $projektIds;
+}
+
+function getAufgabenFromProjekt($aufgaben, $projektId) {
+    $result = [];
+    foreach ($aufgaben as $aufgabe) {
+        if(isset($aufgabe['projekt']) && $aufgabe['projekt'] == $projektId) {
+            array_push($result, $aufgabe);
         }
     }
     return $result;
