@@ -4,11 +4,9 @@ use CodeIgniter\Controller;
 
 class Reiter extends BaseController {
     private $ReiterModel;
-    private $session;
 
     public function __construct() {
-        $this->session = \Config\Services::session();
-        if($this->session->get('loggedIn') == NULL) {
+        if(session()->get('loggedIn') == NULL) {
             header('Location: ' . base_url() . '/login');
             exit();
         }

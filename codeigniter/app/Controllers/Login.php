@@ -6,13 +6,11 @@ use App\Models\MitgliederModel;
 class Login extends BaseController {
     private $MitgliederModel;
     private $ProjekteMitgliederModel;
-    private $session;
 
     private $projekteMitglieder;
 
     public function __construct()
     {
-        $this->session = \Config\Services::session();
         helper('functions');
 
         $this->MitgliederModel = new MitgliederModel();
@@ -22,7 +20,7 @@ class Login extends BaseController {
     }
 
     function process_logout() {
-        $this->session->destroy();
+        session()->destroy();
         return redirect()->to(base_url() . '/login');
     }
 
@@ -32,12 +30,12 @@ class Login extends BaseController {
             if($mitglied != null) {
                 $password = $mitglied['password'];
                 if(password_verify($_POST['password'], $password)) {
-                    $this->session->set('userId', $mitglied['id']);
-                    $this->session->set('username', $mitglied['username']);
-                    $this->session->set('loggedIn', true);
+                    session()->set('userId', $mitglied['id']);
+                    session()->set('username', $mitglied['username']);
+                    session()->set('loggedIn', true);
                     $projektIds = getProjektIdsFromMitglied($this->projekteMitglieder, $mitglied);
                     if(count($projektIds) > 0) {
-                        $this->session->set('projektId', $projektIds[0]);
+                        session()->set('projektId', $projektIds[0]);
                     }
                     return redirect()->to(base_url() . '/todos');
                 }
@@ -47,7 +45,7 @@ class Login extends BaseController {
     }
 
     public function index() {
-        if($this->session->get('loggedIn') == true) {
+        if(session()->get('loggedIn') == true) {
             header('Location: ' . base_url() . '/todos');
             exit();
         }

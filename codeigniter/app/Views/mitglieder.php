@@ -47,7 +47,7 @@
                 $formElements["name"] = "Name";
                 $formElements["username"] = "Username";
                 $formElements["email"] = "E-Mail-Adresse";
-                if (!$delete && (!isset($id) || (isset($_SESSION['userId']) && $id == $_SESSION['userId']))) {
+                if (!$delete && (!isset($id) || (session()->get('userId') != null) && $id == session()->get('userId'))) {
                     $formElements["password"] = "Passwort";
                 }
 

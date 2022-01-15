@@ -2,10 +2,9 @@
     <ul class="list-group">
         <?php
         helper('url');
-        $this->session = \Config\Services::session();
 
         $links = [];
-        if (!$this->session->get('loggedIn')) {
+        if (session()->get('loggedIn') == null) {
             $links['login'] = "Login";
         } else {
             $links['login/process_logout'] = "Logout";

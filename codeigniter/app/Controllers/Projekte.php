@@ -4,11 +4,9 @@ use App\Models\ProjekteModel;
 
 class Projekte extends BaseController {
     private $ProjekteModel;
-    private $session;
 
     public function __construct() {
-        $this->session = \Config\Services::session();
-        if($this->session->get('loggedIn') == NULL) {
+        if(session()->get('loggedIn') == NULL) {
             header('Location: ' . base_url() . '/login');
             exit();
         }

@@ -10,11 +10,9 @@ class Todos extends BaseController {
     private $ReiterModel;
     private $MitgliederModel;
     private $AufgabenMitgliederModel;
-    private $session;
 
     public function __construct() {
-        $this->session = \Config\Services::session();
-        if($this->session->get('loggedIn') == NULL) {
+        if(session()->get('loggedIn') == NULL) {
             header('Location: ' . base_url() . '/login');
             exit();
         }
@@ -28,8 +26,8 @@ class Todos extends BaseController {
 
     public function index() {
         $data['aufgaben'] = $this->AufgabenModel->getAufgaben();
-        if(isset($_SESSION['projektId'])) {
-            $data['aufgaben'] = getAufgabenFromProjekt($data['aufgaben'], $_SESSION['projektId']);
+        if(session()->get('projektId') != null) {
+            $data['aufgaben'] = getAufgabenFromProjekt($data['aufgaben'], session()->get('projektId'));
         }
         $data['mitglieder'] = $this->MitgliederModel->getMitglieder();
         $data['aufgaben_mitglieder'] = $this->AufgabenMitgliederModel->getAufgabenMitglieder();

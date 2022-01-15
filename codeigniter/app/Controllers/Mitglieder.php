@@ -10,13 +10,11 @@ class Mitglieder extends BaseController
     private $MitgliederModel;
     private $ProjekteModel;
     private $ProjekteMitgliederModel;
-    private $session;
 
     public function __construct()
     {
-        $this->session = \Config\Services::session();
         helper("url");
-        if ($this->session->get('loggedIn') == NULL) {
+        if (session()->get('loggedIn') == NULL) {
             header('Location: ' . base_url() . '/login');
             exit();
         }
