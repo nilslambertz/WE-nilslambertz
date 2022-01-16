@@ -6,15 +6,18 @@
         <?php include('templates/nav.php');
         ?>
         <div class="col">
-            <form class="mb-3">
+            <?php echo form_open(base_url('projekte/select/'), array('role' => 'form', 'class' => 'mb-3')); ?>
                 <div class="form-group">
-                    <h3><label for="projektSelect">Projekt auswählen:</label></h3>
-                    <select class="custom-select" id="projektSelect">
-                        <option <?php echo isset($_SESSION['projektId']) ? "" : "selected" ?>>- bitte auswählen -</option>
+                    <h3><label for="projekt">Projekt auswählen:</label></h3>
+                    <select class="custom-select" name="projekt" id="projekt">
+                        <option value="-1" <?php echo isset($_SESSION['projektId']) ? "" : "selected" ?>>- bitte auswählen -</option>
                         <?php
                         foreach($projekte as $projekt) {
                             if(isset($projekt['id']) && isset($projekt['name'])) {
-                                echo("<option " . (isset($_SESSION['projektId']) && $_SESSION['projektId'] == $projekt['id'] ? "selected" : "") . ">");
+                                echo("<option " .
+                                    (isset($_SESSION['projektId']) && $_SESSION['projektId'] == $projekt['id'] ? "selected " : "") .
+                                    "value='" . $projekt['id'] . "'" .
+                                    ">");
                                 echo($projekt['name']);
                                 echo("</option>");
                             }
@@ -22,7 +25,7 @@
                         ?>
                     </select>
                 </div>
-                <button type="button" class="btn btn-success">Auswählen</button>
+                <button type="submit" name="action" value="select" class="btn btn-success">Auswählen</button>
                 <button type="button" class="btn btn-primary">Bearbeiten</button>
                 <button type="button" class="btn btn-danger">Löschen</button>
             </form>

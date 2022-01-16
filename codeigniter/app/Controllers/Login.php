@@ -34,15 +34,7 @@ class Login extends BaseController {
                     session()->set('userId', $mitglied['id']);
                     session()->set('username', $mitglied['username']);
                     session()->set('loggedIn', true);
-                    $projektIds = getProjektIdsFromMitglied($this->projekteMitglieder, $mitglied);
-                    if(count($projektIds) > 0) {
-                        session()->set('projektId', $projektIds[0]);
-                        $projekt = $this->ProjekteModel->getProjekte($projektIds[0]);
-                        if(isset($projekt['name'])) {
-                            session()->set('projektName', $projekt['name']);
-                        }
-                    }
-                    return redirect()->to(base_url() . '/todos');
+                    return redirect()->to(base_url() . '/projekte');
                 }
             }
         } else {

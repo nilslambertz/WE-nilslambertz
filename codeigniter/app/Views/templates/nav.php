@@ -8,10 +8,12 @@
             $links['login/process_logout'] = "Logout";
         }
         $links["projekte"] = "Projekte";
-        $links["todos"] = isset($_SESSION['projektName']) ? $_SESSION['projektName'] : "Aktuelles Projekt";
-        $links["reiter"] = "Reiter";
-        $links["aufgaben"] = "Aufgaben";
-        $links["mitglieder"] = "Mitglieder";
+        if(session()->get('projektId') != null) {
+            $links["todos"] = session()->get('projektName') != null ? session()->get('projektName') : "Aktuelles Projekt";
+            $links["reiter"] = "Reiter";
+            $links["aufgaben"] = "Aufgaben";
+            $links["mitglieder"] = "Mitglieder";
+        }
 
         $classes["todos"] = "mt-3 border-top";
         $classes["reiter"] = "ml-3";
