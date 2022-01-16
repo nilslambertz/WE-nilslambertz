@@ -8,21 +8,13 @@
         <div class="col pb-2">
             <?php
             $disabled = false;
-            $mitglied = null;
             if ($showForm == true):
-                helper('form');
                 $getParams = '';
                 if ($id) {
                     $getParams .= '?id=' . $id;
-                    foreach ($mitglieder as $m) {
-                        if (isset($m['id']) && $m['id'] == $id) {
-                            $mitglied = $m;
-                        }
-                    }
                     if ($delete) {
                         $getParams .= '&action=delete';
                         $disabled = true;
-
                     } else {
                         $getParams .= '&action=edit';
                     }
@@ -59,7 +51,7 @@
                             id="' . $key . '" 
                             name="' . $key . '"
                             placeholder="' . $name . '" 
-                            value="' . ((isset($mitglied[$key]) && $key != "password" ? $mitglied[$key] : '')) . '"
+                            value="' . ((isset($mitglieder[$key]) && $key != "password" ? $mitglieder[$key] : '')) . '"
                             class="form-control"
                             ' . ($disabled ? "disabled" : "") . '
                             />');
@@ -89,8 +81,6 @@
                     </thead>
                     <tbody>
                     <?php
-                    helper("functions");
-
                     foreach ($mitglieder as $mitglied) {
                         echo("<tr>");
                         echo("<td>" . (isset($mitglied['name']) ? $mitglied['name'] : '') . "</td>");

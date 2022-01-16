@@ -25,7 +25,11 @@ class Mitglieder extends BaseController
 
     public function index($showForm = false, $id = null, $delete = false)
     {
-        $data['mitglieder'] = $this->MitgliederModel->getMitglieder();
+        if($id != null) {
+            $data['mitglieder'] = $this->MitgliederModel->getMitglieder($id);
+        } else {
+            $data['mitglieder'] = $this->MitgliederModel->getMitglieder();
+        }
         $data['projekte'] = $this->ProjekteModel->getProjekte();
         $data['projekte_mitglieder'] = $this->ProjekteMitgliederModel->getProjekteMitglieder();
         $data['showForm'] = $showForm;
