@@ -7,7 +7,6 @@
         </div>
         <div class="col">
             <?php
-            helper('form');
             echo form_open(base_url('login/process_login/'), array('role' => 'form'));
             ?>
             <div class="form-group">

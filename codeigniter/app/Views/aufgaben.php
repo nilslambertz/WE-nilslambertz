@@ -19,8 +19,6 @@
                 </thead>
                 <tbody>
                 <?php
-                helper("functions");
-
                 foreach($aufgaben as $aufgabe){
                     echo("<tr>");
                     echo("<td>" . (isset($aufgabe['name']) ? $aufgabe['name'] : '') . "</td>");

@@ -13,7 +13,6 @@ class Mitglieder extends BaseController
 
     public function __construct()
     {
-        helper("url");
         if (session()->get('loggedIn') == NULL) {
             header('Location: ' . base_url() . '/login');
             exit();

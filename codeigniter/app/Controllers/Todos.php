@@ -16,7 +16,6 @@ class Todos extends BaseController {
             header('Location: ' . base_url() . '/login');
             exit();
         }
-        helper('functions');
 
         $this->AufgabenModel = new AufgabenModel();
         $this->ReiterModel = new ReiterModel();
@@ -25,9 +24,10 @@ class Todos extends BaseController {
     }
 
     public function index() {
-        $data['aufgaben'] = $this->AufgabenModel->getAufgaben();
-        if(session()->get('projektId') != null) {
-            $data['aufgaben'] = getAufgabenFromProjekt($data['aufgaben'], session()->get('projektId'));
+        if(session()->get("projektId") != null) {
+            $data['aufgaben'] = $this->AufgabenModel->getAufgabenByProjekt(session()->get("projektId"));
+        } else {
+            $data['aufgaben'] = $this->AufgabenModel->getAufgaben();
         }
         $data['mitglieder'] = $this->MitgliederModel->getMitglieder();
         $data['aufgaben_mitglieder'] = $this->AufgabenMitgliederModel->getAufgabenMitglieder();

@@ -1,8 +1,6 @@
 <div class="col-2">
     <ul class="list-group">
         <?php
-        helper('url');
-
         $links = [];
         if (session()->get('loggedIn') == null) {
             $links['login'] = "Login";

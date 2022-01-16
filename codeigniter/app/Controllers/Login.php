@@ -11,8 +11,6 @@ class Login extends BaseController {
 
     public function __construct()
     {
-        helper('functions');
-
         $this->MitgliederModel = new MitgliederModel();
         $this->ProjekteMitgliederModel = new ProjekteMitgliederModel();
 

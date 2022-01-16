@@ -8,8 +8,6 @@
         <div class="col">
             <div class="row">
                 <?php
-                helper("functions");
-
                 foreach($reiter as $r){
                     echo("<div class='col card border-0'>");
                     echo("<div class='card-header'>" . (isset($r['name']) ? $r['name'] : '') . ":</div>");
