@@ -16,4 +16,12 @@ class AufgabenModel extends Model
         else
             return $result->getResultArray();
     }
+
+    public function getAufgabenByProjekt($projektId) {
+        $aufgaben = $this->db->table('aufgaben');
+        $aufgaben->select('*');
+        $aufgaben->where('projekt', $projektId);
+        $result = $aufgaben->get();
+        return $result->getResultArray();
+    }
 }
