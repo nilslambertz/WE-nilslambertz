@@ -57,31 +57,28 @@ class Mitglieder extends BaseController
 
     public function submit()
     {
-        if (isset($_GET['action'])) {
-            $action = $_GET['action'];
+        if (isset($_POST['action'])) {
+            $action = $_POST['action'];
 
-            if ($action == "delete" && isset($_GET['id'])) {
-                $this->MitgliederModel->deleteMitglied($_GET['id']);
+            if ($action == "delete" && isset($_POST['id'])) {
+                $this->MitgliederModel->deleteMitglied($_POST['id']);
             } else {
-                $data = $_POST;
+                $data['username'] = isset($_POST['username']) ? $_POST['username'] : "";
+                $data['name'] = isset($_POST['name']) ? $_POST['name'] : "";
+                $data['email'] = isset($_POST['email']) ? $_POST['email'] : "";
 
                 $inProjekt = isset($_POST['inProjekt']);
-                unset($data['inProjekt']);
-
                 $mitgliedId = -1;
 
-                if ($action == "edit" && isset($_GET['id'])) {
-                    if (isset($data['password'])) {
-                        if ($data['password'] == "") {
-                            unset($data['password']);
-                        } else {
-                            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-                        }
+                if ($action == "edit" && isset($_POST['id'])) {
+                    if (isset($data['password']) && $data['password'] != "") {
+                        $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
                     }
-                    $this->MitgliederModel->updateMitglied($_GET['id'], $data);
-                    $mitgliedId = $_GET['id'];
+                    $data['id'] = $_POST['id'];
+                    $this->MitgliederModel->updateMitglied($_POST['id'], $data);
+                    $mitgliedId = $_POST['id'];
                 } elseif ($action == "create") {
-                    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                    $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
                     $mitgliedId = $this->MitgliederModel->createMitglied($data);
                 }
 

@@ -10,11 +10,11 @@
                 <div class="form-group">
                     <h3><label for="projektSelect">Projekt auswählen:</label></h3>
                     <select class="custom-select" id="projektSelect">
-                        <option selected>- bitte auswählen -</option>
+                        <option <?php echo isset($_SESSION['projektId']) ? "" : "selected" ?>>- bitte auswählen -</option>
                         <?php
                         foreach($projekte as $projekt) {
                             if(isset($projekt['id']) && isset($projekt['name'])) {
-                                echo("<option>");
+                                echo("<option " . (isset($_SESSION['projektId']) && $_SESSION['projektId'] == $projekt['id'] ? "selected" : "") . ">");
                                 echo($projekt['name']);
                                 echo("</option>");
                             }
@@ -22,7 +22,7 @@
                         ?>
                     </select>
                 </div>
-                <button type="button" class="btn btn-primary">Auswählen</button>
+                <button type="button" class="btn btn-success">Auswählen</button>
                 <button type="button" class="btn btn-primary">Bearbeiten</button>
                 <button type="button" class="btn btn-danger">Löschen</button>
             </form>

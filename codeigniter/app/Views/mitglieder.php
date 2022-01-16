@@ -7,22 +7,20 @@
         ?>
         <div class="col pb-2">
             <?php
-            $disabled = false;
+            $disabled = $delete;
+            $action = "";
             if ($showForm == true):
-                $getParams = '';
                 if ($id) {
-                    $getParams .= '?id=' . $id;
                     if ($delete) {
-                        $getParams .= '&action=delete';
-                        $disabled = true;
+                        $action = "delete";
                     } else {
-                        $getParams .= '&action=edit';
+                        $action = "edit";
                     }
                 } else {
-                    $getParams .= '?action=create';
+                    $action = "create";
                 }
                 echo('<a href="' . base_url('mitglieder') . '"><button class="btn btn-info mb-3">Zurück</button></a>');
-                echo form_open(base_url('mitglieder/submit' . $getParams), array('role' => 'form'));
+                echo form_open(base_url('mitglieder/submit/'), array('role' => 'form'));
                 ?>
                 <?php if ($id != null): ?>
                 <?php if ($delete): ?>
@@ -57,18 +55,23 @@
                             />');
                     echo('</div>');
                 }
+                if($id) {
+                    echo form_hidden('id', $id);
+                }
                 ?>
                 <div class="form-group form-check">
-                    <input type="checkbox" name="inProjekt" class="form-check-input"
-                        <?php echo isMitgliedInProjekt($projekte_mitglieder, $mitglieder["id"]) ? "checked" : "" ?>/>
+                    <input type="checkbox" id="inProjekt" name="inProjekt" class="form-check-input"
+                        <?php echo $id && isMitgliedInProjekt($projekte_mitglieder, $mitglieder["id"]) ? "checked" : "" ?>
+                        <?php echo ($disabled ? "disabled" : "") ?>
+                    />
                     <label for="inProjekt" class="form-check-label">Diesem Projekt zugeordnet</label>
                 </div>
                 <?php if ($delete): ?>
-                <button type="submit" class="btn btn-danger">Löschen</button>
+                <button type="submit" name="action" value="delete" class="btn btn-danger">Löschen</button>
 
             <?php else: ?>
                 <button type="reset" class="btn btn-info">Werte zurücksetzen</button>
-                <button type="submit" class="btn btn-primary">Speichern</button>
+                <button type="submit" name="action" value="<?php echo $action ?>" class="btn btn-primary">Speichern</button>
             <?php endif; ?>
                 </form>
             <?php
