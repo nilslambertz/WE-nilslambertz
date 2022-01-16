@@ -8,13 +8,18 @@
             $links['login/process_logout'] = "Logout";
         }
         $links["projekte"] = "Projekte";
-        $links["todos"] = "Aktuelles Projekt";
+        $links["todos"] = isset($_SESSION['projektName']) ? $_SESSION['projektName'] : "Aktuelles Projekt";
         $links["reiter"] = "Reiter";
         $links["aufgaben"] = "Aufgaben";
         $links["mitglieder"] = "Mitglieder";
 
+        $classes["todos"] = "mt-3 border-top";
+        $classes["reiter"] = "ml-3";
+        $classes["aufgaben"] = "ml-3";
+        $classes["mitglieder"] = "ml-3";
+
         foreach ($links as $link => $titel) {
-            echo('<li class="list-group-item">');
+            echo('<li class="list-group-item ' . (isset($classes[$link]) ? "$classes[$link]" : "") . '">');
             echo('<a href="' . base_url($link) . '">' . $titel . '</a>');
             echo('</li>');
         }

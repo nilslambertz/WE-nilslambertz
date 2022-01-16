@@ -1,11 +1,13 @@
 <?php namespace App\Controllers;
 use App\Models\ProjekteMitgliederModel;
+use App\Models\ProjekteModel;
 use CodeIgniter\Controller;
 use App\Models\MitgliederModel;
 
 class Login extends BaseController {
     private $MitgliederModel;
     private $ProjekteMitgliederModel;
+    private $ProjekteModel;
 
     private $projekteMitglieder;
 
@@ -13,6 +15,7 @@ class Login extends BaseController {
     {
         $this->MitgliederModel = new MitgliederModel();
         $this->ProjekteMitgliederModel = new ProjekteMitgliederModel();
+        $this->ProjekteModel = new ProjekteModel();
 
         $this->projekteMitglieder = $this->ProjekteMitgliederModel->getProjekteMitglieder();
     }
@@ -34,6 +37,10 @@ class Login extends BaseController {
                     $projektIds = getProjektIdsFromMitglied($this->projekteMitglieder, $mitglied);
                     if(count($projektIds) > 0) {
                         session()->set('projektId', $projektIds[0]);
+                        $projekt = $this->ProjekteModel->getProjekte($projektIds[0]);
+                        if(isset($projekt['name'])) {
+                            session()->set('projektName', $projekt['name']);
+                        }
                     }
                     return redirect()->to(base_url() . '/todos');
                 }
