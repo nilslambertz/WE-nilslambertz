@@ -16,4 +16,22 @@ class ProjekteModel extends Model
         else
             return $result->getResultArray();
     }
+
+    public function createProjekt($data) {
+        $projekte = $this->db->table('projekte');
+        $projekte->insert($data);
+        return $this->db->insertID();
+    }
+
+    public function updateProjekt($id, $data) {
+        $projekte = $this->db->table('projekte');
+        $projekte->where('id', $id);
+        $projekte->update($data);
+    }
+
+    public function deleteProjekt($id) {
+        $projekte = $this->db->table('projekte');
+        $projekte->where('id', $id);
+        $projekte->delete();
+    }
 }
