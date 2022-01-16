@@ -58,6 +58,11 @@
                     echo('</div>');
                 }
                 ?>
+                <div class="form-group form-check">
+                    <input type="checkbox" name="inProjekt" class="form-check-input"
+                        <?php echo isMitgliedInProjekt($projekte_mitglieder, $mitglieder["id"]) ? "checked" : "" ?>/>
+                    <label for="inProjekt" class="form-check-label">Diesem Projekt zugeordnet</label>
+                </div>
                 <?php if ($delete): ?>
                 <button type="submit" class="btn btn-danger">Löschen</button>
 
@@ -86,8 +91,9 @@
                         echo("<td>" . (isset($mitglied['name']) ? $mitglied['name'] : '') . "</td>");
                         echo("<td>" . (isset($mitglied['username']) ? $mitglied['username'] : '') . "</td>");
                         echo("<td>" . (isset($mitglied['email']) ? $mitglied['email'] : '') . "</td>");
-                        echo("<td>" . getProjektNamenFromMitglied($projekte, $projekte_mitglieder, $mitglied) . "</td>");
-                        echo("</td>");
+                        $currentProjektId = isset($_SESSION['projektId']) ? $_SESSION['projektId'] : -1;
+                        echo('<td><div class="form-group form-check"> <input type="checkbox" class="form-check-input" ' .
+                            (isMitgliedInProjekt($projekte_mitglieder, $mitglied["id"]) ? "checked" : "") . ' disabled/></div></td>');
                         echo('<td class="text-right">'
                             . '<a href="mitglieder/edit/' . $mitglied['id'] . '" class="mr-3"><i class="fas fa-edit fa-lg"></i></a>'
                             . '<a href="mitglieder/delete/' . $mitglied['id'] . '"><i class="fas fa-trash fa-lg"></i></a>'

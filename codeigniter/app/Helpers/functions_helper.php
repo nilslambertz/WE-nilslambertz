@@ -57,6 +57,15 @@ function getProjektNamenFromMitglied($projekte, $projekte_mitglieder, $mitglied)
     return $result;
 }
 
+function isMitgliedInProjekt($projekte_mitglieder, $mitgliedId) {
+    foreach ($projekte_mitglieder as $projekt_mitglied) {
+        if (isset($projekt_mitglied['mitglied']) && $projekt_mitglied['mitglied'] == $mitgliedId){
+            return true;
+        }
+    }
+    return false;
+}
+
 function getProjektIdsFromMitglied($projekte_mitglieder, $mitglied)
 {
     $projektIds = [];
