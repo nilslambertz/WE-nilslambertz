@@ -16,4 +16,22 @@ class ReiterModel extends Model
         else
             return $result->getResultArray();
     }
+
+    public function createReiter($data) {
+        $reiter = $this->db->table('reiter');
+        $reiter->insert($data);
+        return $this->db->insertID();
+    }
+
+    public function updateReiter($id, $data) {
+        $reiter = $this->db->table('reiter');
+        $reiter->where('id', $id);
+        $reiter->update($data);
+    }
+
+    public function deleteReiter($id) {
+        $reiter = $this->db->table('reiter');
+        $reiter->where('id', $id);
+        $reiter->delete();
+    }
 }
