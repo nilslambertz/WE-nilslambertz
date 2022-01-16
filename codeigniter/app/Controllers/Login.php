@@ -23,7 +23,7 @@ class Login extends BaseController {
     }
 
     function process_login() {
-        if(isset($_POST['username']) && isset($_POST['password'])) {
+        if($this->validation->run($_POST, "login")) {
             $mitglied = $this->MitgliederModel->login($_POST['username']);
             if($mitglied != null) {
                 $password = $mitglied['password'];
@@ -38,8 +38,14 @@ class Login extends BaseController {
                     return redirect()->to(base_url() . '/todos');
                 }
             }
+        } else {
+            $data['values'] = $_POST;
+            $data['error'] = $this->validation->getErrors();
+
+            echo view('templates/header');
+            echo view('login', $data);
+            echo view('templates/footer');
         }
-        return redirect()->to(base_url() . '/login');
     }
 
     public function index() {

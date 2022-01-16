@@ -40,4 +40,22 @@ class Validation
     //--------------------------------------------------------------------
     // Rules
     //--------------------------------------------------------------------
+
+    public $login = [
+        "username" => "required",
+        "password" => "required",
+        "agb" => "required"
+    ];
+
+    public $login_errors = [
+        "username" => [
+            "required" => "Bitte Benutzernamen angeben"
+        ],
+        "password" => [
+            "required" => "Bitte Passwort angeben"
+        ],
+        "agb" => [
+            "required" => "Bitte ABG akzeptieren"
+        ],
+    ];
 }
