@@ -12,11 +12,6 @@ class Mitglieder extends BaseController
 
     public function __construct()
     {
-        if (session()->get('loggedIn') == NULL) {
-            header('Location: ' . base_url() . '/login');
-            exit();
-        }
-
         $this->MitgliederModel = new MitgliederModel();
         $this->ProjekteMitgliederModel = new ProjekteMitgliederModel();
     }

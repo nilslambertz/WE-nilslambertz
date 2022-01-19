@@ -6,11 +6,6 @@ class Reiter extends BaseController {
     private $ReiterModel;
 
     public function __construct() {
-        if(session()->get('loggedIn') == NULL) {
-            header('Location: ' . base_url() . '/login');
-            exit();
-        }
-
         $this->ReiterModel = new ReiterModel();
     }
 
