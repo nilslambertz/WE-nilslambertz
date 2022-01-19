@@ -23,8 +23,8 @@
                     echo("<tr>");
                     echo("<td>" . (isset($aufgabe['name']) ? $aufgabe['name'] : '') . "</td>");
                     echo("<td>" . (isset($aufgabe['beschreibung']) ? $aufgabe['beschreibung'] : '') . "</td>");
-                    echo("<td>" . getReiterNameFromAufgabe($aufgabe, $reiter) . "</td>");
-                    echo("<td>" . getMitgliederNamenFromAufgabe($aufgabe, $aufgaben_mitglieder, $mitglieder) . "</td>");
+                    echo("<td>" . (isset($aufgabe['reiterName']) ? $aufgabe['reiterName'] : '') . "</td>");
+                    echo("<td>" . (isset($aufgabe['mitglieder']) ? $aufgabe['mitglieder'] : '') . "</td>");
                     echo('<td class="text-right">'
                         . '<object height="20" data="assets/edit-box.svg" type="image/svg+xml">Bearbeiten</object>'
                         . '<object height="20" data="assets/trash-bin.svg" type="image/svg+xml">Löschen</object>'

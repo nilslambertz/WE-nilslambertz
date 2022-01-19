@@ -18,9 +18,8 @@
                                 if(isset($aufgabe['name'])) {
                                     echo("<li class='list-group-item'>");
                                     echo($aufgabe['name']);
-                                    $zustaendig = getMitgliederNamenFromAufgabe($aufgabe, $aufgaben_mitglieder, $mitglieder);
-                                    if(strlen($zustaendig) > 0) {
-                                        echo(" (" . $zustaendig . ")");
+                                    if(isset($aufgabe['mitglieder'])) {
+                                        echo(" (" . $aufgabe['mitglieder'] . ")");
                                     }
                                     echo("</li>");
                                 }

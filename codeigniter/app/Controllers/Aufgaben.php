@@ -25,12 +25,10 @@ class Aufgaben extends BaseController {
 
     public function index() {
         if(session()->get("projektId") != null) {
-            $data['aufgaben'] = $this->AufgabenModel->getAufgabenByProjekt(session()->get("projektId"));
+            $data['aufgaben'] = $this->AufgabenModel->getAufgabenAndMitgliederAndReiter(NULL, session()->get("projektId"));
         } else {
-            $data['aufgaben'] = $this->AufgabenModel->getAufgaben();
+            $data['aufgaben'] = $this->AufgabenModel->getAufgabenAndMitgliederAndReiter();
         }
-        $data['mitglieder'] = $this->MitgliederModel->getMitglieder();
-        $data['aufgaben_mitglieder'] = $this->AufgabenMitgliederModel->getAufgabenMitglieder();
         $data['reiter'] = $this->ReiterModel->getReiter();
 
         echo view('templates/header');
