@@ -25,7 +25,7 @@ class AufgabenModel extends Model
         $aufgaben->join('reiter', 'aufgaben.reiter = reiter.id', 'left');
 
         if ($aufgabe_id != NULL)
-            $aufgaben->where('id', $aufgabe_id);
+            $aufgaben->where('aufgaben.id', $aufgabe_id);
 
         if ($projekt_id != NULL)
             $aufgaben->where('projekt', $projekt_id);
@@ -45,5 +45,23 @@ class AufgabenModel extends Model
         $aufgaben->where('projekt', $projektId);
         $result = $aufgaben->get();
         return $result->getResultArray();
+    }
+
+    public function createAufgabe($data) {
+        $aufgaben = $this->db->table('aufgaben');
+        $aufgaben->insert($data);
+        return $this->db->insertID();
+    }
+
+    public function updateAufgabe($id, $data) {
+        $aufgaben = $this->db->table('aufgaben');
+        $aufgaben->where('id', $id);
+        $aufgaben->update($data);
+    }
+
+    public function deleteAufgabe($id) {
+        $aufgaben = $this->db->table('aufgaben');
+        $aufgaben->where('id', $id);
+        $aufgaben->delete();
     }
 }
