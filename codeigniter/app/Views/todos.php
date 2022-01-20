@@ -2,9 +2,10 @@
     <div class="jumbotron text-center">
         <h1>Aufgabenplaner: Todos (<?php echo(isset($_SESSION['projektName']) ? $_SESSION['projektName'] : "Aktuelles Projekt") ?>)</h1>
     </div>
+    <?php include('templates/nav.php');
+    ?>
     <div class="row">
-        <?php include('templates/nav.php');
-        ?>
+        <div class="col-2"></div>
         <div class="col">
             <div class="row">
                 <?php
@@ -32,5 +33,6 @@
                 ?>
             </div>
         </div>
+        <div class="col-2"></div>
     </div>
 </div>

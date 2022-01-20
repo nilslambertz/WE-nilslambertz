@@ -2,9 +2,10 @@
     <div class="jumbotron text-center">
         <h1>Aufgabenplaner: Projekte</h1>
     </div>
+    <?php include('templates/nav.php');
+    ?>
     <div class="row">
-        <?php include('templates/nav.php');
-        ?>
+        <div class="col-2"></div>
         <div class="col"><?php
             $disabled = $delete;
             $action = "";
