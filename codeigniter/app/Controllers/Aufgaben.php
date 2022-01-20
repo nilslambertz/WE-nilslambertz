@@ -86,7 +86,12 @@ class Aufgaben extends BaseController {
                     $data['ersteller'] = session()->get("userId") != null ? session()->get("userId") : "";
                     $data['projekt'] = session()->get("projektId") != null ? session()->get("projektId") : "";
                     $data['erstellungsdatum'] = date("Y-m-d H:i");
-                    $this->AufgabenModel->createAufgabe($data);
+                    $aufgabenId = $this->AufgabenModel->createAufgabe($data);
+
+                    $newMitglieder = isset($_POST['mitglieder']) ? $_POST['mitglieder'] : [];
+                    foreach($newMitglieder as $a) {
+                        $this->AufgabenMitgliederModel->createAufgabeMitglied($aufgabenId, $a);
+                    }
                 }
             }
         }
