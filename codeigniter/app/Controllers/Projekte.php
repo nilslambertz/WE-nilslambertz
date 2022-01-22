@@ -32,6 +32,7 @@ class Projekte extends BaseController {
                     if(!empty($projekt) && isset($projekt['name'])) {
                         session()->set('projektId', $_POST['projekt']);
                         session()->set('projektName', $projekt['name']);
+                        return redirect()->to(base_url('todos'));
                     }
                 } else {
                     session()->remove('projektId');
