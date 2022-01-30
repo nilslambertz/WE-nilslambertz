@@ -49,7 +49,7 @@ class Login extends BaseController {
 
     public function index() {
         if(session()->get('loggedIn') == true) {
-            header('Location: ' . base_url() . '/todos');
+            header('Location: ' . base_url() . '/projekte');
             exit();
         }
 
