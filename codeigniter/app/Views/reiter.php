@@ -52,7 +52,8 @@
                     ><?php echo isset($reiter['beschreibung']) ? $reiter['beschreibung'] : "" ?></textarea>
                 </div>
                 <?php if ($delete): ?>
-                <button type="submit" name="action" value="delete" class="btn btn-danger">Löschen</button>
+                <button type="button" class="btn btn-danger deleteModal">Löschen</button>
+                <button name="action" value="delete" class="deleteReal d-none">Löschen</button>
             <?php else: ?>
                 <button type="reset" class="btn btn-info">Werte zurücksetzen</button>
                 <button type="submit" name="action" value="<?php echo $action ?>" class="btn btn-primary">Speichern</button>
