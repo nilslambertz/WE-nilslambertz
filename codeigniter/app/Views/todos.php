@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="jumbotron text-center">
-        <h1>Aufgabenplaner: Todos (<?php echo(isset($_SESSION['projektName']) ? $_SESSION['projektName'] : "Aktuelles Projekt") ?>)</h1>
+        <h1>Aufgabenplaner: Todos (<?php echo(isset($_SESSION['projektName']) ? $_SESSION['projektName'] : "Alle Projekte") ?>)</h1>
     </div>
     <?php include('templates/nav.php');
     ?>
